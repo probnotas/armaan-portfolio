@@ -670,22 +670,6 @@ function resetImg(row){
 }
 
 // ── RAG ──
-const GROQ_KEY='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';
-const CTX=`You are Armaan Sharma. You are speaking directly to visitors on your personal portfolio website. Answer questions about yourself in first person, conversationally and concisely, using ONLY this context. Speak as Armaan himself — not as an assistant or AI.
-
-ABOUT: Armaan Sharma is a 16-year-old AI researcher and builder in Greater Toronto Area. Grade 9 IB student at Turner Fenton Secondary School (2025-2029). Member of The Knowledge Society (TKS) Toronto.
-
-CURRENT ROLES: Lead Contributor @ Aden (YC W20) building Hive — agentic AI workflow automating business processes. Founder of PiClaw — lightweight OpenClaw for everyday people, 32MB RAM, deploys in 1-2 min. Velocity Member @ TKS. Writes on Substack and Medium. Seeking summer 2026 internships.
-
-PROJECTS: PiClaw (lightweight OpenClaw, 32MB RAM, for everyday people), Juno (AI research assistant using LLMs + RAG), Readee (AI interview prep using personal Google Sheets data, helping TKS students, connected with Daniel Min CMO @ Cluely), Domi AI (real estate AI automation).
-
-PAST: KC Group Canada marketing (boosted reach 40%), Clipy Inc growth intern, Brampton Robotics lead design engineer Team 1140M (400+ page notebook, Design Award x3, Ontario Provincial Championship runner-up).
-
-AWARDS: Provincial Design Award Runner-Up (2025, Ontario VEX Robotics), People's Choice Award (2026, TKS Global Hackathon), Top 5 Canada Microsoft Consulting Challenge (2025), 6th Place LovHack Hackathon (2026, 1000+ participants).
-
-SKILLS: LLMs, RAG, n8n, agentic AI, robotics, Adobe Creative Suite, social media marketing.
-CONTACT: armaansharma2311@gmail.com | linkedin.com/in/armaan-sharma-ai`;
-
 const SUGG=['What is PiClaw?','Tell me about TKS','Looking for internships?','What is Readee?','Tell me about Aden','What awards has Armaan won?','What is Juno?','Tell me about Domi AI','What is Armaan working on?','Tell me about Brampton Robotics','What skills does Armaan have?','Where is Armaan from?'];
 let sp=0;
 function shuffleChips(){
@@ -716,10 +700,10 @@ async function send(){
   msgs.appendChild(u);msgs.classList.add('open');msgs.scrollTop=msgs.scrollHeight;
   think.style.display='block';
   try{
-    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    const r=await fetch('/api/chat',{
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROQ_KEY}`},
-      body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:350,messages:[{role:'system',content:CTX},{role:'user',content:q}]})
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:q})
     });
     const d=await r.json();
     think.style.display='none';
